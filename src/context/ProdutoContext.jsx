@@ -1,134 +1,85 @@
-import { createContext, useContext, useState } from "react";
-import produtosIniciais from "../data/produtos";
-
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 const ProdutoContext = createContext();
 
-
 export function ProdutoProvider({ children }) {
+  const [produtos, setProdutos] = useState([]);
 
+  async function carregarProdutos() {
+    const { data, error } = await supabase
+      .from("produtos")
+      .select("*")
+      .order("id", { ascending: true });
 
-  const [produtos, setProdutos] = useState(() => {
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-    const produtosSalvos =
-      localStorage.getItem("produtos");
-
-
-    return produtosSalvos
-      ? JSON.parse(produtosSalvos)
-      : produtosIniciais;
-
-  });
-
-
-
-  function salvarProdutos(novosProdutos) {
-
-    setProdutos(novosProdutos);
-
-    localStorage.setItem(
-      "produtos",
-      JSON.stringify(novosProdutos)
-    );
-
+    setProdutos(data);
   }
 
+  useEffect(() => {
+    carregarProdutos();
+  }, []);
 
+  async function adicionarProduto(produto) {
+    const { error } = await supabase
+      .from("produtos")
+      .insert([produto]);
 
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-  function adicionarProduto(produto) {
-
-
-    const novaLista = [
-
-      ...produtos,
-
-      {
-        ...produto,
-        id: Date.now(),
-      },
-
-    ];
-
-
-    salvarProdutos(novaLista);
-
+    carregarProdutos();
   }
 
+  async function removerProduto(id) {
+    const { error } = await supabase
+      .from("produtos")
+      .delete()
+      .eq("id", id);
 
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-
-
-  function removerProduto(id) {
-
-
-    const novaLista =
-      produtos.filter(
-        (produto) =>
-          produto.id !== id
-      );
-
-
-    salvarProdutos(novaLista);
-
+    carregarProdutos();
   }
 
+  async function editarProduto(id, novosDados) {
+    const { error } = await supabase
+      .from("produtos")
+      .update(novosDados)
+      .eq("id", id);
 
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-
-
-  function editarProduto(id, novosDados) {
-
-
-    const novaLista =
-      produtos.map((produto) =>
-
-        produto.id === id
-
-        ? {
-            ...produto,
-            ...novosDados,
-          }
-
-        : produto
-
-      );
-
-
-    salvarProdutos(novaLista);
-
+    carregarProdutos();
   }
-
-
-
-
 
   return (
-
     <ProdutoContext.Provider
-
       value={{
         produtos,
         adicionarProduto,
         removerProduto,
         editarProduto,
+        carregarProdutos,
       }}
-
     >
-
       {children}
-
     </ProdutoContext.Provider>
-
   );
-
 }
 
-
-
-
 export function useProdutos() {
-
   return useContext(ProdutoContext);
-
 }
