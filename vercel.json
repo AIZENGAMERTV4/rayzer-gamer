@@ -1,7 +1,31 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/admin",
+      "destination": "/"
+    },
+    {
+      "source": "/login",
+      "destination": "/"
+    },
+    {
+      "source": "/catalogo",
+      "destination": "/"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/"
+    },
+    {
+      "source": "/favoritos",
+      "destination": "/"
+    },
+    {
+      "source": "/carrinho",
+      "destination": "/"
+    },
+    {
+      "source": "/produto/:id",
       "destination": "/"
     }
   ]
