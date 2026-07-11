@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import produtos from "../data/produtos";
+import { useProdutos } from "../context/ProdutoContext";
 import ProductCard from "../components/ProductCard";
 
 
@@ -8,6 +8,8 @@ export default function Catalogo() {
 
 
   const [categoria, setCategoria] = useState("Todos");
+
+const { produtos } = useProdutos();
 
 
   const categorias = [

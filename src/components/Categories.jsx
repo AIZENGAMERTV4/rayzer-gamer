@@ -14,44 +14,37 @@ import SectionTitle from "./ui/SectionTitle";
 export default function Categories() {
 
   const categorias = [
-
-    {
-      nome: "Headsets",
-      descricao: "Áudio Gamer",
-      icone: <FaHeadphones />,
-    },
-
-    {
-      nome: "Teclados",
-      descricao: "Mecânicos RGB",
-      icone: <FaKeyboard />,
-    },
-
-    {
-      nome: "Mouse",
-      descricao: "Alta Precisão",
-      icone: <FaMouse />,
-    },
-
-    {
-      nome: "Monitores",
-      descricao: "240Hz",
-      icone: <FaDesktop />,
-    },
-
-    {
-      nome: "Hardware",
-      descricao: "Upgrade",
-      icone: <FaMicrochip />,
-    },
-
-    {
-      nome: "Games",
-      descricao: "Lançamentos",
-      icone: <FaGamepad />,
-    },
-
-  ];
+  {
+    nome: "Placas de Vídeo",
+    descricao: "RTX • Radeon",
+    icone: <FaMicrochip />,
+  },
+  {
+    nome: "Processadores",
+    descricao: "Intel • AMD",
+    icone: <FaMicrochip />,
+  },
+  {
+    nome: "Memórias RAM",
+    descricao: "DDR4 • DDR5",
+    icone: <FaMicrochip />,
+  },
+  {
+    nome: "SSD",
+    descricao: "NVMe • SATA",
+    icone: <FaMicrochip />,
+  },
+  {
+    nome: "Fontes",
+    descricao: "80 Plus",
+    icone: <FaDesktop />,
+  },
+  {
+    nome: "Gabinetes",
+    descricao: "ATX • Micro ATX",
+    icone: <FaDesktop />,
+  },
+];
 
   return (
 
