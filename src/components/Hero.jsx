@@ -40,6 +40,7 @@ export default function Hero() {
             <div className="relative h-[280px] sm:h-[420px] md:h-[600px] lg:h-[680px]">
 
               <img
+              
                 src={banner}
                 alt={`Banner ${index + 1}`}
                 className="
@@ -50,6 +51,22 @@ export default function Hero() {
                   object-cover
                 "
               />
+              <div
+className="
+absolute
+right-0
+top-0
+
+w-[500px]
+h-[500px]
+
+rounded-full
+
+bg-violet-700/20
+
+blur-[180px]
+"
+/>
 
               <div
                 className="
@@ -79,7 +96,15 @@ export default function Hero() {
                   RAYZER GAMER
                 </span>
 
-                <h1 className="text-white text-3xl
+                <h1 className="bg-gradient-to-r
+
+from-white
+
+to-violet-300
+
+bg-clip-text
+
+text-transparent text-3xl
 sm:text-5xl
 md:text-6xl
 lg:text-7xl
@@ -97,7 +122,9 @@ lg:text-7xl
                   <Link
                     to="/catalogo"
                     className="
-                      bg-violet-600
+                      bg-gradient-to-r
+from-violet-600
+to-fuchsia-600
                       hover:bg-violet-700
                       px-5
                       sm:px-8
@@ -107,6 +134,9 @@ lg:text-7xl
                       font-bold
                       text-white
                       transition
+                      hover:scale-105
+shadow-xl
+shadow-violet-700/40
                     "
                   >
                     Comprar Agora
@@ -116,7 +146,7 @@ lg:text-7xl
                     to="/catalogo"
                     className="
                       border
-                      border-white/30
+                      border-zinc-500
                       hover:border-violet-500
                       hover:bg-white/10
                       px-8
@@ -124,12 +154,46 @@ lg:text-7xl
                       rounded-xl
                       text-white
                       transition
+                      backdrop-blur-xl
                     "
                   >
                     Ver Catálogo
                   </Link>
 
                 </div>
+                <div className="flex flex-wrap gap-6 mt-10">
+
+  <div className="flex items-center gap-3">
+
+    <div className="w-3 h-3 rounded-full bg-green-400"></div>
+
+    <span className="text-zinc-300 font-medium">
+      Frete para todo Brasil
+    </span>
+
+  </div>
+
+  <div className="flex items-center gap-3">
+
+    <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
+
+    <span className="text-zinc-300 font-medium">
+      Garantia Nacional
+    </span>
+
+  </div>
+
+  <div className="flex items-center gap-3">
+
+    <div className="w-3 h-3 rounded-full bg-violet-400"></div>
+
+    <span className="text-zinc-300 font-medium">
+      Até 12x sem juros
+    </span>
+
+  </div>
+
+</div>
 
               </div>
 

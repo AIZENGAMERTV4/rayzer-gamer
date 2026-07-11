@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+
 import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import Ofertas from "../components/Ofertas";
@@ -7,51 +8,105 @@ import Beneficios from "../components/Beneficios";
 import Marcas from "../components/Marcas";
 import Estatisticas from "../components/Estatisticas";
 import BannerPromocional from "../components/BannerPromocional";
+
 import FadeUp from "../components/animations/FadeUp";
-import TrustBar from "../components/TrustBar";
+
+import Section from "../components/ui/Section";
 
 export default function Home() {
+
   return (
 
-  <Layout
-    fullWidth={<Hero />}
-  >
+    <Layout fullWidth={<Hero />}>
 
-    <FadeUp>
-      <TrustBar />
-    </FadeUp>
+      <div className="space-y-12 lg:space-y-26">
 
-    <FadeUp>
-      <Estatisticas />
-    </FadeUp>
+        <FadeUp>
 
-    <FadeUp>
-      <Beneficios />
-    </FadeUp>
+          <Section>
 
-    <FadeUp>
-      <Marcas />
-    </FadeUp>
+            <Categories />
 
-    <FadeUp>
-      <BannerPromocional />
-    </FadeUp>
+          </Section>
 
-    <FadeUp>
-      <Categories />
-    </FadeUp>
+        </FadeUp>
 
-    <FadeUp>
-      <Ofertas />
-    </FadeUp>
 
-    <FadeUp>
-      <section className="section-dark">
-        <ProductGrid />
-      </section>
-    </FadeUp>
 
-  </Layout>
+        <FadeUp>
 
- );
+          <Section>
+
+            <Ofertas />
+
+          </Section>
+
+        </FadeUp>
+
+
+
+        <FadeUp>
+
+          <Section>
+
+            <ProductGrid />
+
+          </Section>
+
+        </FadeUp>
+
+
+
+        <FadeUp>
+
+          <Section>
+
+            <BannerPromocional />
+
+          </Section>
+
+        </FadeUp>
+
+
+
+        <FadeUp>
+
+          <Section>
+
+            <Estatisticas />
+
+          </Section>
+
+        </FadeUp>
+
+
+
+        <FadeUp>
+
+          <Section>
+
+            <Marcas />
+
+          </Section>
+
+        </FadeUp>
+
+
+
+        <FadeUp>
+
+          <Section >
+
+            <Beneficios />
+
+          </Section>
+
+        </FadeUp>
+
+      </div>
+
+    </Layout>
+
+  );
+
 }

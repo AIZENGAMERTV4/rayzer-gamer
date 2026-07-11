@@ -8,22 +8,32 @@ export default function ProductCard({ produto }) {
   return (
     <div
       className="
-        group
-        bg-zinc-900
-        border
-        border-zinc-800
-        rounded-3xl
-        overflow-hidden
-        transition-all
-        duration-300
-        hover:-translate-y-2
-        hover:border-violet-500
-        hover:shadow-2xl
-        hover:shadow-violet-900/40
-      "
+group
+relative
+overflow-hidden
+rounded-3xl
+border
+border-zinc-800
+bg-gradient-to-b
+from-zinc-900
+to-zinc-950
+transition-all
+duration-500
+hover:-translate-y-3
+hover:border-violet-500
+hover:shadow-[0_0_45px_rgba(124,58,237,.30)]
+"
     >
       {/* Imagem */}
-      <div className="relative overflow-hidden bg-black">
+      <div className="
+relative
+overflow-hidden
+
+bg-gradient-to-br
+from-zinc-950
+via-zinc-900
+to-violet-950/30
+">
 
         <Link to={`/produto/${produto.id}`}>
 
@@ -40,6 +50,20 @@ export default function ProductCard({ produto }) {
               group-hover:scale-110
             "
           />
+
+          <div
+className="
+absolute
+bottom-0
+left-0
+w-full
+h-20
+
+bg-gradient-to-t
+from-black
+to-transparent
+opacity-50
+"/>
 
         </Link>
 
@@ -67,21 +91,34 @@ export default function ProductCard({ produto }) {
 
         <button
           className="
-            absolute
-            top-4
-            right-4
-            w-11
-            h-11
-            rounded-full
-            bg-black/70
-            backdrop-blur
-            flex
-            items-center
-            justify-center
-            text-white
-            hover:bg-violet-600
-            transition
-          "
+absolute
+top-4
+right-4
+
+w-11
+h-11
+
+rounded-full
+
+bg-zinc-900/80
+
+backdrop-blur-xl
+
+border
+border-zinc-700
+
+flex
+items-center
+justify-center
+
+text-white
+
+transition-all
+duration-300
+
+hover:bg-red-500
+hover:scale-110
+"
         >
           <FaHeart />
         </button>
@@ -92,15 +129,24 @@ export default function ProductCard({ produto }) {
 
       <div className="p-6">
 
-        <span className="
-          text-xs
-          uppercase
-          tracking-widest
-          text-violet-400
-          font-semibold
-        ">
-          {produto.categoria}
-        </span>
+        <span
+  className="
+    inline-block
+    px-3
+    py-1
+    rounded-full
+    bg-violet-600/20
+    border
+    border-violet-500/20
+    text-violet-300
+    text-xs
+    font-bold
+    uppercase
+    tracking-wider
+  "
+>
+  {produto.categoria}
+</span>
 
         <Link to={`/produto/${produto.id}`}>
 
@@ -120,15 +166,23 @@ export default function ProductCard({ produto }) {
 
         </Link>
 
-        <div className="flex gap-1 mt-4 text-yellow-400">
+  <div className="flex items-center gap-1 mt-5">
 
-          {Array.from({
-            length: produto.avaliacao,
-          }).map((_, index) => (
-            <FaStar key={index} />
-          ))}
+  <div className="flex text-yellow-400">
 
-        </div>
+    {Array.from({
+      length: produto.avaliacao,
+    }).map((_, index) => (
+      <FaStar key={index} />
+    ))}
+
+  </div>
+
+  <span className="text-zinc-500 text-sm ml-2">
+    (245)
+  </span>
+
+</div>
 
         <div className="mt-5">
 
