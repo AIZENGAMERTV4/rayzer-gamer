@@ -1,8 +1,18 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaStar, FaShoppingCart } from "react-icons/fa";
 
-import produtos from "../data/produtos";
+import { useProdutos } from "../context/ProdutoContext";
 import { useLoja } from "../context/LojaContext";
+
+const { produtos } = useProdutos();
+const [imagemAtual, setImagemAtual] = useState("");
+
+useEffect(() => {
+  if (produto?.imagens?.length) {
+    setImagemAtual(produto.imagens[0]);
+  }
+}, [produto]);
 
 
 export default function Produto() {
@@ -11,22 +21,30 @@ export default function Produto() {
 
   const { adicionarCarrinho } = useLoja();
 
+  const { produtos } = useProdutos();
 
   const produto = produtos.find(
     (item) => item.id === Number(id)
   );
 
+  const [imagemAtual, setImagemAtual] = useState("");
+
+  useEffect(() => {
+    if (produto?.imagens?.length) {
+      setImagemAtual(produto.imagens[0]);
+    }
+  }, [produto]);
 
   if (!produto) {
-
     return (
       <div className="text-white text-3xl">
         Produto não encontrado
       </div>
     );
-
   }
 
+  // restante do código...
+}
 
 
   return (
@@ -48,18 +66,67 @@ export default function Produto() {
 
         <div>
 
-          <img
-            src={produto.imagem}
-            alt={produto.nome}
-            className="
-              w-full
-              h-[450px]
-              object-cover
-              rounded-2xl
-            "
-          />
+          <div className="flex gap-5">
 
-        </div>
+  <div className="flex flex-col gap-3">
+
+    {produto.imagens?.map((img, index) => (
+
+      <button
+        key={index}
+        onClick={() => setImagemAtual(img)}
+        className="
+          border
+          border-zinc-700
+          rounded-xl
+          overflow-hidden
+          hover:border-violet-500
+          transition
+        "
+      >
+
+        <img
+          src={img}
+          alt=""
+          className="
+            w-20
+            h-20
+            object-cover
+          "
+        />
+
+      </button>
+
+    ))}
+
+  </div>
+
+  <div
+    className="
+      flex-1
+      bg-zinc-950
+      rounded-3xl
+      p-8
+      flex
+      items-center
+      justify-center
+    "
+  >
+
+    <img
+      src={imagemAtual}
+      alt={produto.nome}
+      className="
+        max-h-[520px]
+        object-contain
+      "
+    />
+
+     </div>
+
+   </div>
+
+ </div>
 
 
 
@@ -171,4 +238,3 @@ export default function Produto() {
 
   );
 
-}

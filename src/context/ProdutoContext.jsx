@@ -24,18 +24,42 @@ export function ProdutoProvider({ children }) {
     carregarProdutos();
   }, []);
 
-  async function adicionarProduto(produto) {
-    const { error } = await supabase
-      .from("produtos")
-      .insert([produto]);
+ async function adicionarProduto(produto) {
+  const { error } = await supabase
+    .from("produtos")
+    .insert([
+      {
+        nome: produto.nome,
+        categoria: produto.categoria,
+        marca: produto.marca,
+        preco: produto.preco,
+        descricao: produto.descricao,
+        estoque: produto.estoque,
+        avaliacao: produto.avaliacao,
+        promocao: produto.promocao,
+        destaque: produto.destaque,
+        imagens: produto.imagens?.[0]
+      },
+    ]);
 
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    carregarProdutos();
+  if (error) {
+    console.error(error);
+    alert(error.message);
+    return;
   }
+
+  carregarProdutos();
+}
+
+
+  if (error) {
+    console.error(error);
+    alert(error.message);
+    return;
+  }
+
+  carregarProdutos();
+}
 
   async function removerProduto(id) {
     const { error } = await supabase
@@ -78,7 +102,7 @@ export function ProdutoProvider({ children }) {
       {children}
     </ProdutoContext.Provider>
   );
-}
+
 
 export function useProdutos() {
   return useContext(ProdutoContext);

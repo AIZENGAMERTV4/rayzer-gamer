@@ -38,8 +38,12 @@ to-violet-950/30
         <Link to={`/produto/${produto.id}`}>
 
           <img
-            src={produto.imagem}
-            alt={produto.nome}
+  src={
+    produto.imagens?.length
+      ? produto.imagens[0]
+      : "/sem-imagem.png"
+  }
+  alt={produto.nome}
             className="
               w-full
               h-44 sm:h-52 lg:h-60
