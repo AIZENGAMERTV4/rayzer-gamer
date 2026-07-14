@@ -47,19 +47,20 @@ const [preview, setPreview] = useState([]);
   const urlsImagens = [];
 
   for (const arquivo of imagens) {
-    const nomeArquivo = `${Date.now()}-${Math.random()
-      .toString(36)
-      .substring(2)}-${arquivo.name}`;
+    const extensao = arquivo.name.split(".").pop();
+
+const nomeArquivo =
+  `${Date.now()}-${Math.random().toString(36).substring(2)}.${extensao}`;
 
     const { error: uploadError } = await supabase.storage
       .from("produtos")
       .upload(nomeArquivo, arquivo);
 
     if (uploadError) {
-      console.error(uploadError);
-      alert("Erro ao enviar imagem.");
-      return;
-    }
+  console.error(uploadError);
+  alert(uploadError.message);
+  return;
+}
 
     const { data } = supabase.storage
       .from("produtos")

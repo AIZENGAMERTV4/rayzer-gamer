@@ -25,26 +25,24 @@ export function ProdutoProvider({ children }) {
   }, []);
 
  async function adicionarProduto(produto) {
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("produtos")
     .insert([
       {
         nome: produto.nome,
         categoria: produto.categoria,
-        marca: produto.marca,
         preco: produto.preco,
         descricao: produto.descricao,
         estoque: produto.estoque,
-        avaliacao: produto.avaliacao,
-        promocao: produto.promocao,
-        destaque: produto.destaque,
-        imagens: produto.imagens
+        imagens: produto.imagens,
       },
-    ]);
+    ])
+    .select();
 
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
 
   if (error) {
-    console.error(error);
     alert(error.message);
     return;
   }
