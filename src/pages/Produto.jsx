@@ -5,15 +5,6 @@ import { FaStar, FaShoppingCart } from "react-icons/fa";
 import { useProdutos } from "../context/ProdutoContext";
 import { useLoja } from "../context/LojaContext";
 
-const { produtos } = useProdutos();
-const [imagemAtual, setImagemAtual] = useState("");
-
-useEffect(() => {
-  if (produto?.imagens?.length) {
-    setImagemAtual(produto.imagens[0]);
-  }
-}, [produto]);
-
 
 export default function Produto() {
 
@@ -42,10 +33,6 @@ export default function Produto() {
       </div>
     );
   }
-
-  // restante do código...
-}
-
 
   return (
 
@@ -238,3 +225,4 @@ export default function Produto() {
 
   );
 
+}

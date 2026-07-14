@@ -38,18 +38,9 @@ export function ProdutoProvider({ children }) {
         avaliacao: produto.avaliacao,
         promocao: produto.promocao,
         destaque: produto.destaque,
-        imagens: produto.imagens?.[0]
+        imagens: produto.imagens
       },
     ]);
-
-  if (error) {
-    console.error(error);
-    alert(error.message);
-    return;
-  }
-
-  carregarProdutos();
-}
 
 
   if (error) {
@@ -89,7 +80,7 @@ export function ProdutoProvider({ children }) {
     carregarProdutos();
   }
 
-  return (
+   return (
     <ProdutoContext.Provider
       value={{
         produtos,
@@ -102,7 +93,7 @@ export function ProdutoProvider({ children }) {
       {children}
     </ProdutoContext.Provider>
   );
-
+}
 
 export function useProdutos() {
   return useContext(ProdutoContext);

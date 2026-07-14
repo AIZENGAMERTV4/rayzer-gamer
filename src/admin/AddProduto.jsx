@@ -100,18 +100,6 @@ const [preview, setPreview] = useState([]);
 
 }
 
-    setProduto({
-      nome: "",
-      categoria: "",
-      preco: "",
-      descricao: "",
-      estoque: "",
-      imagem: "",
-    });
-
-    alert("Produto cadastrado com sucesso!");
-  }
-
   return (
     <form
       onSubmit={cadastrar}
@@ -238,3 +226,4 @@ const [preview, setPreview] = useState([]);
       </button>
     </form>
   );
+}
