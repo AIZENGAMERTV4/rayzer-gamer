@@ -26,58 +26,53 @@ export default function Checkout() {
   );
 
   async function pagar() {
-    try {
-      setCarregando(true);
+  try {
+    setCarregando(true);
 
-      const response = await fetch("/api/create-preference", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cliente,
-          items: carrinho.map((produto) => ({
-            id: String(produto.id),
-            title: produto.nome,
-            quantity: produto.quantidade,
-            unit_price: Number(produto.preco),
-            currency_id: "BRL",
-          })),
-        }),
-      });
+    const response = await fetch("/api/create-preference", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cliente,
+        items: carrinho.map((produto) => ({
+          id: String(produto.id),
+          title: produto.nome,
+          quantity: produto.quantidade,
+          unit_price: Number(produto.preco),
+          currency_id: "BRL",
+        })),
+      }),
+    });
 
-      const texto = await response.text();
+    const data = await response.json();
 
-      console.log("STATUS:", response.status);
-      console.log("RESPOSTA:", texto);
+    console.log("RESPOSTA MERCADO PAGO:", data);
 
-      if (!response.ok) {
-        throw new Error(texto);
-      }
-
-      const data = JSON.parse(texto);
-
-console.log("STATUS:", response.status);
-console.log("RESPOSTA:", data);
-console.log("PREFERENCE ID:", data.id);
-
-alert(data.id);
-
-window.location.href = data.init_point;
-
-    } catch (erro) {
-      console.error(erro);
-
-      alert(
-        erro instanceof Error
-          ? erro.message
-          : "Erro ao iniciar pagamento."
-      );
-
-    } finally {
-      setCarregando(false);
+    if (!response.ok) {
+      throw new Error(data.message || "Erro ao criar pagamento");
     }
+
+    if (!data.init_point) {
+      throw new Error("Mercado Pago não retornou link de pagamento");
+    }
+
+    window.location.href = data.init_point;
+
+  } catch (erro) {
+    console.error("ERRO PAGAMENTO:", erro);
+
+    alert(
+      erro instanceof Error
+        ? erro.message
+        : "Erro ao iniciar pagamento."
+    );
+
+  } finally {
+    setCarregando(false);
   }
+}
 
   return (
 
