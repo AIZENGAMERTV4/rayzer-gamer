@@ -1,6 +1,7 @@
 import { useLoja } from "../context/LojaContext";
 import { FaTrash, FaPlus, FaMinus, FaShieldAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
 
 export default function Carrinho() {
   const {
@@ -13,6 +14,9 @@ export default function Carrinho() {
   const navigate = useNavigate();
 
   return (
+
+<Layout>
+
     <div className="max-w-7xl mx-auto px-6 py-10 text-white">
 
       <h1 className="text-5xl font-black mb-10">
@@ -234,6 +238,9 @@ export default function Carrinho() {
 
       )}
 
-    </div>
+        </div>
+
+</Layout>
+
   );
 }

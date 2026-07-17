@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoja } from "../context/LojaContext";
+import Layout from "../components/Layout";
 
 export default function Checkout() {
   const { carrinho } = useLoja();
@@ -56,8 +57,13 @@ export default function Checkout() {
 
       const data = JSON.parse(texto);
 
-      window.location.href =
-        `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${data.id}`;
+console.log("STATUS:", response.status);
+console.log("RESPOSTA:", data);
+console.log("PREFERENCE ID:", data.id);
+
+alert(data.id);
+
+window.location.href = data.init_point;
 
     } catch (erro) {
       console.error(erro);
@@ -74,13 +80,17 @@ export default function Checkout() {
   }
 
   return (
+
+<Layout>
+
     <div className="max-w-7xl mx-auto px-6 py-12 text-white">
 
       <h1 className="text-5xl font-black mb-10">
         Finalizar Compra
       </h1>
 
-      <div className="grid lg:grid-cols-[1fr_420px] gap-10"></div>
+      <div className="grid lg:grid-cols-[1fr_420px] gap-10">
+
               {/* DADOS DO CLIENTE */}
         <div className="space-y-8">
 
@@ -306,6 +316,10 @@ export default function Checkout() {
 
         </div>
 
-      </div>
+          </div>
+          </div>
+
+</Layout>
+
   );
 }

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
+import { useProdutos } from "../context/ProdutoContext";
 
 export default function ImportarCatalogo() {
   const [dados, setDados] = useState([]);
-
+const { adicionarProduto } = useProdutos();
   function lerArquivo(e) {
     const arquivo = e.target.files[0];
 
@@ -29,6 +30,23 @@ export default function ImportarCatalogo() {
 
     reader.readAsArrayBuffer(arquivo);
   }
+
+  async function importarProdutos() {
+  for (const item of dados) {
+    await adicionarProduto({
+      nome: item.nome || item.Nome || "",
+      categoria: item.categoria || item.Categoria || "",
+      preco: Number(item.preco || item.Preço || 0),
+      descricao: item.descricao || item.Descrição || "",
+      estoque: Number(item.estoque || item.Estoque || 0),
+      imagens: item.imagens
+        ? String(item.imagens).split(",")
+        : [],
+    });
+  }
+
+  alert(`${dados.length} produtos importados com sucesso!`);
+}
 
   return (
     <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
@@ -104,6 +122,13 @@ export default function ImportarCatalogo() {
           <p className="mt-4 text-green-400">
             {dados.length} produtos encontrados
           </p>
+
+          <button
+  onClick={importarProdutos}
+  className="mt-6 w-full bg-violet-600 hover:bg-violet-700 py-3 rounded-xl font-bold transition"
+>
+  🚀 Importar Catálogo
+</button>
 
         </div>
       )}

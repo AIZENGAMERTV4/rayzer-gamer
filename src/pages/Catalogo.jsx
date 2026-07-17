@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { useProdutos } from "../context/ProdutoContext";
 import ProductCard from "../components/ProductCard";
+import Layout from "../components/Layout";
 
 
 export default function Catalogo() {
@@ -34,6 +35,8 @@ const { produtos } = useProdutos();
 
 
   return (
+
+<Layout>
 
     <div className="text-white">
 
@@ -122,8 +125,9 @@ const { produtos } = useProdutos();
 
       </div>
 
-
     </div>
+
+</Layout>
 
   );
 

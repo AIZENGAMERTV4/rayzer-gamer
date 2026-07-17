@@ -5,6 +5,8 @@ import { FaStar, FaShoppingCart } from "react-icons/fa";
 import { useProdutos } from "../context/ProdutoContext";
 import { useLoja } from "../context/LojaContext";
 
+import Layout from "../components/Layout";
+
 
 export default function Produto() {
 
@@ -27,14 +29,18 @@ export default function Produto() {
   }, [produto]);
 
   if (!produto) {
+
     return (
+      
       <div className="text-white text-3xl">
         Produto não encontrado
       </div>
     );
   }
 
-  return (
+ return (
+
+<Layout>
 
     <div className="text-white">
 
@@ -221,7 +227,9 @@ export default function Produto() {
       </div>
 
 
-    </div>
+        </div>
+
+</Layout>
 
   );
 

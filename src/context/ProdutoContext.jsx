@@ -13,9 +13,11 @@ export function ProdutoProvider({ children }) {
       .order("id", { ascending: true });
 
     if (error) {
-      console.error(error);
+      console.error("ERRO SUPABASE:", error);
       return;
     }
+
+    console.log("PRODUTOS SUPABASE:", data);
 
     setProdutos(data);
   }
@@ -23,32 +25,6 @@ export function ProdutoProvider({ children }) {
   useEffect(() => {
     carregarProdutos();
   }, []);
-
- async function adicionarProduto(produto) {
-  const { data, error } = await supabase
-    .from("produtos")
-    .insert([
-      {
-        nome: produto.nome,
-        categoria: produto.categoria,
-        preco: produto.preco,
-        descricao: produto.descricao,
-        estoque: produto.estoque,
-        imagens: produto.imagens,
-      },
-    ])
-    .select();
-
-  console.log("DATA:", data);
-  console.log("ERROR:", error);
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  carregarProdutos();
-}
 
   async function removerProduto(id) {
     const { error } = await supabase
@@ -78,7 +54,30 @@ export function ProdutoProvider({ children }) {
     carregarProdutos();
   }
 
-   return (
+  async function adicionarProduto(produto) {
+    const { error } = await supabase
+      .from("produtos")
+      .insert([
+        {
+          nome: produto.nome,
+          categoria: produto.categoria,
+          preco: produto.preco,
+          descricao: produto.descricao,
+          estoque: produto.estoque,
+          imagens: produto.imagens,
+        },
+      ]);
+
+    if (error) {
+      console.error(error);
+      alert(error.message);
+      return;
+    }
+
+    carregarProdutos();
+  }
+
+  return (
     <ProdutoContext.Provider
       value={{
         produtos,

@@ -1,233 +1,69 @@
 import { Link } from "react-router-dom";
-import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaStar } from "react-icons/fa";
 import { useLoja } from "../context/LojaContext";
 
 export default function ProductCard({ produto }) {
   const { adicionarCarrinho } = useLoja();
 
-  return (
-    <div
-      className="
-group
-relative
-overflow-hidden
-rounded-3xl
-border
-border-zinc-800
-bg-gradient-to-b
-from-zinc-900
-to-zinc-950
-transition-all
-duration-500
-hover:-translate-y-3
-hover:border-violet-500
-hover:shadow-[0_0_45px_rgba(124,58,237,.30)]
-"
-    >
-      {/* Imagem */}
-      <div className="
-relative
-overflow-hidden
-
-bg-gradient-to-br
-from-zinc-950
-via-zinc-900
-to-violet-950/30
-">
-
-        <Link to={`/produto/${produto.id}`}>
-
-          <img
-  src={
-    produto.imagens?.length
+  const imagem =
+    Array.isArray(produto.imagens) && produto.imagens.length > 0
       ? produto.imagens[0]
-      : "/sem-imagem.png"
-  }
-  alt={produto.nome}
-            className="
-              w-full
-              h-44 sm:h-52 lg:h-60
-              object-contain
-              p-4 sm:p-6
-              transition-transform
-              duration-500
-              group-hover:scale-110
-            "
+      : "/sem-imagem.png";
+
+  return (
+    <div className="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-violet-500 transition-all duration-300 hover:-translate-y-2">
+
+      <Link to={`/produto/${produto.id}`}>
+        <div className="bg-zinc-950 h-64 flex items-center justify-center p-6">
+          <img
+            src={imagem}
+            alt={produto.nome}
+            className="max-h-full object-contain transition duration-300 hover:scale-110"
           />
+        </div>
+      </Link>
 
-          <div
-className="
-absolute
-bottom-0
-left-0
-w-full
-h-20
+      <div className="p-5">
 
-bg-gradient-to-t
-from-black
-to-transparent
-opacity-50
-"/>
-
-        </Link>
-
-        {produto.promocao && (
-          <span
-            className="
-              absolute
-              top-4
-              left-4
-              bg-gradient-to-r
-              from-violet-600
-              to-fuchsia-600
-              px-4
-              py-2
-              rounded-full
-              text-xs
-              font-bold
-              text-white
-              shadow-lg
-            "
-          >
-            🔥 OFERTA
-          </span>
-        )}
-
-        <button
-          className="
-absolute
-top-4
-right-4
-
-w-11
-h-11
-
-rounded-full
-
-bg-zinc-900/80
-
-backdrop-blur-xl
-
-border
-border-zinc-700
-
-flex
-items-center
-justify-center
-
-text-white
-
-transition-all
-duration-300
-
-hover:bg-red-500
-hover:scale-110
-"
-        >
-          <FaHeart />
-        </button>
-
-      </div>
-
-      {/* Conteúdo */}
-
-      <div className="p-6">
-
-        <span
-  className="
-    inline-block
-    px-3
-    py-1
-    rounded-full
-    bg-violet-600/20
-    border
-    border-violet-500/20
-    text-violet-300
-    text-xs
-    font-bold
-    uppercase
-    tracking-wider
-  "
->
-  {produto.categoria}
-</span>
+        <span className="text-xs bg-violet-600/20 text-violet-300 px-3 py-1 rounded-full">
+          {produto.categoria}
+        </span>
 
         <Link to={`/produto/${produto.id}`}>
-
-          <h3
-            className="
-              text-white
-              text-base md:text-lg
-              font-bold
-              mt-3
-              h-14
-              hover:text-violet-400
-              transition
-            "
-          >
+          <h2 className="text-white font-bold text-lg mt-3 min-h-[56px] hover:text-violet-400 transition">
             {produto.nome}
-          </h3>
-
+          </h2>
         </Link>
 
-  <div className="flex items-center gap-1 mt-5">
-
-  <div className="flex text-yellow-400">
-
-    {Array.from({
-      length: produto.avaliacao,
-    }).map((_, index) => (
-      <FaStar key={index} />
-    ))}
-
-  </div>
-
-  <span className="text-zinc-500 text-sm ml-2">
-    (245)
-  </span>
-
-</div>
-
-        <div className="mt-5">
-
-          <p className="
-            text-2xl md:text-3xl
-            font-black
-            text-white
-          ">
-            R$ {produto.preco.toFixed(2)}
-          </p>
-
+        <div className="flex items-center mt-3 gap-1 text-yellow-400">
+          {[1,2,3,4,5].map((i)=>(
+            <FaStar key={i} size={14}/>
+          ))}
         </div>
 
-        <button
-          onClick={() => adicionarCarrinho(produto)}
-          className="
-            w-full
-            mt-5
-            py-3 md:py-4
-            rounded-2xl
-            font-bold
-            text-white
-            bg-gradient-to-r
-            from-violet-600
-            to-fuchsia-600
-            hover:scale-[1.03]
-            transition-all
-            duration-300
-            flex
-            items-center
-            justify-center
-            gap-3
-            shadow-lg
-            shadow-violet-700/30
-          "
-        >
-          <FaShoppingCart />
+        <h3 className="text-3xl font-black text-cyan-400 mt-5">
+          R$ {Number(produto.preco).toFixed(2)}
+        </h3>
 
-          Adicionar ao Carrinho
+        <div className="flex gap-3 mt-5">
 
-        </button>
+          <button
+            onClick={() => adicionarCarrinho(produto)}
+            className="flex-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 py-3 rounded-xl font-bold hover:scale-105 transition"
+          >
+            <div className="flex justify-center items-center gap-2">
+              <FaShoppingCart />
+              Comprar
+            </div>
+          </button>
+
+          <button
+            className="w-12 rounded-xl bg-zinc-800 hover:bg-red-500 transition flex items-center justify-center"
+          >
+            <FaHeart />
+          </button>
+
+        </div>
 
       </div>
 

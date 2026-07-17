@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import { Outlet } from "react-router-dom";
 
 export default function Layout({
   children,
@@ -62,23 +63,23 @@ export default function Layout({
         {fullWidth}
 
         <main
-          className="
-            max-w-[1700px]
-            mx-auto
-            px-4
-            sm:px-6
-            lg:px-8
-            pt-8
-            md:pt-10
-            pb-12
-            space-y-14
-            lg:space-y-20
-          "
-        >
-          {children}
-        </main>
+  className="
+    max-w-[1700px]
+    mx-auto
+    px-4
+    sm:px-6
+    lg:px-8
+    pt-8
+    md:pt-10
+    pb-12
+    space-y-14
+    lg:space-y-20
+  "
+>
+  {children}
+</main>
 
-        <Footer />
+<Footer />
 
       </div>
 
