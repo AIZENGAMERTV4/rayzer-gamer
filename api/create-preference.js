@@ -32,20 +32,12 @@ export default async function handler(req, res) {
     });
 
     console.log("PREFERÊNCIA CRIADA:");
-    console.dir(response, { depth: null });
+console.dir(response, { depth: null });
 
-    return res.status(200).json({
-      id: response.id,
-    });
-
-  } catch (error) {
-    console.log("ERRO COMPLETO:");
-    console.dir(error, { depth: null });
-
-    return res.status(500).json({
-      message: error.message,
-      status: error.status,
-      details: error,
-    });
+return res.status(200).json({
+  id: response.id,
+  init_point: response.init_point,
+  sandbox_init_point: response.sandbox_init_point,
+});
   }
 }
