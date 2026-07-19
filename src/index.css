@@ -101,12 +101,23 @@ padding:55px;
 
 body{
 
+font-family: Inter, Arial, Helvetica, sans-serif;
+color:white;
+
 background:
-radial-gradient(circle at top,#4c1d9520,transparent 35%),
-radial-gradient(circle at right,#2563eb15,transparent 30%),
-#050505;
+linear-gradient(
+180deg,
+#050507 0%,
+#080811 25%,
+#0b0816 55%,
+#050507 100%
+);
 
 background-attachment:fixed;
+
+position:relative;
+
+overflow-x:hidden;
 
 }
 
@@ -165,5 +176,79 @@ transform:scale(1.05);
 box-shadow:
 0 0 25px #7c3aed,
 0 0 60px #7c3aed;
+
+}
+
+/* ===========================
+   CYBER BACKGROUND
+=========================== */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+background:
+
+radial-gradient(
+circle at 15% 20%,
+rgba(124,58,237,.18),
+transparent 22%
+),
+
+radial-gradient(
+circle at 85% 10%,
+rgba(59,130,246,.14),
+transparent 20%
+),
+
+radial-gradient(
+circle at 50% 80%,
+rgba(168,85,247,.12),
+transparent 25%
+);
+
+filter:blur(40px);
+
+z-index:-2;
+
+}
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+opacity:.06;
+
+background-image:
+
+linear-gradient(
+rgba(255,255,255,.08) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(255,255,255,.08) 1px,
+transparent 1px
+);
+
+background-size:50px 50px;
+
+mask-image:
+radial-gradient(circle,#fff 40%,transparent 100%);
+
+z-index:-1;
 
 }

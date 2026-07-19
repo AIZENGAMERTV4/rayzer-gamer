@@ -6,48 +6,87 @@ import Dashboard from "../components/admin/Dashboard";
 import ProductTable from "../components/admin/ProductTable";
 import AddProduto from "../components/admin/AddProduto";
 import Importador from "../components/admin/Importador";
+import Pedidos from "../components/admin/Pedidos";
 
 export default function Admin() {
 
-    const [pagina, setPagina] = useState("Dashboard");
+  const [pagina, setPagina] = useState("Dashboard");
 
-    return (
+  return (
 
-        <div className="flex min-h-screen bg-zinc-950 text-white">
+    <div className="flex min-h-screen bg-zinc-950 text-white">
 
-            <Sidebar
-                pagina={pagina}
-                setPagina={setPagina}
-            />
+      <Sidebar
+        pagina={pagina}
+        setPagina={setPagina}
+      />
 
-            <main className="flex-1 p-8 overflow-auto">
+      <main className="flex-1 p-8 overflow-auto">
 
-                <h1 className="text-4xl font-black text-purple-500 mb-8">
+        <h1 className="text-4xl font-black text-purple-500 mb-8">
+          {pagina}
+        </h1>
 
-                    {pagina}
+        {pagina === "Dashboard" && (
+          <Dashboard />
+        )}
 
-                </h1>
+        {pagina === "Produtos" && (
+          <ProductTable />
+        )}
 
-                {pagina === "Dashboard" && (
-                    <Dashboard />
-                )}
+        {pagina === "Adicionar" && (
+          <AddProduto />
+        )}
 
-                {pagina === "Produtos" && (
-                    <ProductTable />
-                )}
+        {pagina === "Importar" && (
+          <Importador />
+        )}
 
-                {pagina === "Adicionar" && (
-                    <AddProduto />
-                )}
+        {pagina === "Pedidos" && (
+          <Pedidos />
+        )}
 
-                {pagina === "Importar" && (
-                    <Importador />
-                )}
+        {pagina === "Clientes" && (
+          <div className="bg-zinc-900 rounded-xl p-10 text-center">
+            <h2 className="text-3xl font-bold mb-3">
+              👥 Clientes
+            </h2>
 
-            </main>
+            <p className="text-zinc-400">
+              Em breve você poderá visualizar todos os clientes cadastrados.
+            </p>
+          </div>
+        )}
 
-        </div>
+        {pagina === "Cupons" && (
+          <div className="bg-zinc-900 rounded-xl p-10 text-center">
+            <h2 className="text-3xl font-bold mb-3">
+              🎟 Cupons
+            </h2>
 
-    );
+            <p className="text-zinc-400">
+              Sistema de cupons será implementado em breve.
+            </p>
+          </div>
+        )}
+
+        {pagina === "Configurações" && (
+          <div className="bg-zinc-900 rounded-xl p-10 text-center">
+            <h2 className="text-3xl font-bold mb-3">
+              ⚙ Configurações
+            </h2>
+
+            <p className="text-zinc-400">
+              Área de configurações da loja.
+            </p>
+          </div>
+        )}
+
+      </main>
+
+    </div>
+
+  );
 
 }

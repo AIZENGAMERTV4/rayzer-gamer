@@ -2,6 +2,7 @@ import { useLoja } from "../context/LojaContext";
 import { FaTrash, FaPlus, FaMinus, FaShieldAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
+import { useAuth } from "../context/AuthContext";
 
 export default function Carrinho() {
   const {
@@ -12,6 +13,23 @@ export default function Carrinho() {
     total,
   } = useLoja();
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  function finalizarCompra() {
+
+  if (!user) {
+
+    navigate("/login", {
+      state: {
+        from: "/checkout",
+      },
+    });
+
+    return;
+  }
+
+  navigate("/checkout");
+}
 
   return (
 
@@ -86,7 +104,7 @@ export default function Carrinho() {
                   <div className="flex items-center gap-3 mt-6">
 
                     <button
-  onClick={() => navigate("/checkout")}
+  onClick={finalizarCompra}
   className="
     w-full
     mt-8
@@ -109,7 +127,7 @@ export default function Carrinho() {
                     </span>
 
                     <button
-                      onClick={() => adicionarCarrinho(produto)}
+                      onClick={finalizarCompra}
                       className="
                         w-10
                         h-10

@@ -8,36 +8,48 @@ import Favoritos from "./pages/Favoritos";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Checkout from "./pages/Checkout";
+import MinhaConta from "./pages/MinhaConta";
 
 
 export default function App() {
 
-return (
+  return (
 
-<BrowserRouter>
+    <BrowserRouter>
 
-<Routes>
+      <Routes>
 
-<Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
 
-<Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/catalogo" element={<Catalogo />} />
 
-<Route path="/produto/:id" element={<Produto />} />
+        <Route path="/produto/:id" element={<Produto />} />
 
-<Route path="/carrinho" element={<Carrinho />} />
+        <Route path="/carrinho" element={<Carrinho />} />
 
-<Route path="/favoritos" element={<Favoritos />} />
+        <Route path="/favoritos" element={<Favoritos />} />
 
-<Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
-<Route path="/checkout" element={<Checkout />} />
+        <Route 
+          path="/minha-conta" 
+          element={<MinhaConta />} 
+        />
 
-<Route path="/admin" element={<Admin />} />
+        <Route 
+          path="/checkout" 
+          element={<Checkout />} 
+        />
 
-</Routes>
+        <Route 
+          path="/admin" 
+          element={<Admin />} 
+        />
 
-</BrowserRouter>
+      </Routes>
 
-);
+    </BrowserRouter>
+
+  );
 
 }

@@ -9,16 +9,32 @@ import {
 import GlowIcon from "../ui/GlowIcon";
 
 import { useLoja } from "../../context/LojaContext";
+import { useAuth } from "../../context/AuthContext";
+
 
 export default function HeaderActions({
   abrirCarrinho,
 }) {
 
+
   const { carrinho } = useLoja();
+
+  const { user } = useAuth();
+
+
+
+  const nome =
+    user?.user_metadata?.nome ||
+    "Conta";
+
+
 
   return (
 
     <div className="flex items-center gap-2 sm:gap-3">
+
+
+      {/* FAVORITOS */}
 
       <Link to="/favoritos">
 
@@ -30,6 +46,11 @@ export default function HeaderActions({
 
       </Link>
 
+
+
+
+      {/* CARRINHO */}
+
       <GlowIcon
         onClick={abrirCarrinho}
         badge={carrinho.length}
@@ -39,7 +60,21 @@ export default function HeaderActions({
 
       </GlowIcon>
 
-      <Link to="/login">
+
+
+
+
+      {/* USUARIO */}
+
+      <Link
+        to={user ? "/minha-conta" : "/login"}
+        className="
+        flex
+        items-center
+        gap-2
+        "
+      >
+
 
         <GlowIcon>
 
@@ -47,7 +82,51 @@ export default function HeaderActions({
 
         </GlowIcon>
 
+
+
+        <div className="
+          hidden
+          xl:block
+          text-left
+        ">
+
+
+          <p className="
+            text-xs
+            text-zinc-400
+          ">
+
+            {user
+              ? "Olá,"
+              : "Entrar"}
+
+          </p>
+
+
+
+          {user && (
+
+            <p className="
+              text-sm
+              font-bold
+              max-w-[100px]
+              truncate
+            ">
+
+              {nome}
+
+            </p>
+
+          )}
+
+
+        </div>
+
+
+
       </Link>
+
+
 
     </div>
 

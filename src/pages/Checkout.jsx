@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLoja } from "../context/LojaContext";
 import Layout from "../components/Layout";
+import { supabase } from "../lib/supabase";
 
 export default function Checkout() {
   const { carrinho } = useLoja();
@@ -28,6 +29,47 @@ export default function Checkout() {
   async function pagar() {
   try {
     setCarregando(true);
+    // Gerar número do pedido
+const numeroPedido =
+  "RG-" + Date.now();
+
+// Salvar pedido
+const { data: pedido, error: erroPedido } = await supabase
+  .from("pedidos")
+  .insert([
+    {
+      numero: numeroPedido,
+
+      cliente_nome: cliente.nome,
+      cliente_email: cliente.email,
+      cliente_cpf: cliente.cpf,
+      cliente_telefone: cliente.telefone,
+
+      cep: cliente.cep,
+      rua: cliente.rua,
+      numero_endereco: cliente.numero,
+      complemento: cliente.complemento,
+      cidade: cliente.cidade,
+      estado: cliente.estado,
+
+      itens: carrinho,
+
+      subtotal: total,
+      frete: 0,
+      total: total,
+
+      status_pagamento: "Aguardando",
+      status_pedido: "Novo",
+    },
+  ])
+  .select()
+  .single();
+
+if (erroPedido) {
+  console.error(erroPedido);
+  alert("Erro ao salvar pedido.");
+  return;
+}
 
     const response = await fetch("/api/create-preference", {
       method: "POST",

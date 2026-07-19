@@ -1,93 +1,106 @@
-import { createContext, useContext, useState } from "react";
-
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 const AuthContext = createContext();
 
-
-
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  // Carrega sessão ao iniciar
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-  const [logado, setLogado] = useState(() => {
+    // Escuta mudanças de login/logout
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    return localStorage.getItem("adminLogado") === "true";
+    return () => subscription.unsubscribe();
+  }, []);
 
-  });
+  // LOGIN
+  async function login(email, senha) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password: senha,
+    });
 
-
-
-  function login(email, senha) {
-
-
-    if (
-      email === "admin@rayzergamer.com" &&
-      senha === "123456"
-    ) {
-
-
-      setLogado(true);
-
-
-      localStorage.setItem(
-        "adminLogado",
-        "true"
-      );
-
-
-      return true;
-
+    if (error) {
+      console.error(error);
+      return { sucesso: false, mensagem: error.message };
     }
 
-
-    return false;
-
+    return { sucesso: true, data };
   }
 
+  // CADASTRO
+  async function cadastro(nome, email, senha) {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password: senha,
+      options: {
+        data: {
+          nome,
+        },
+      },
+    });
 
+    if (error) {
+      console.error(error);
+      return { sucesso: false, mensagem: error.message };
+    }
 
-
-
-  function logout() {
-
-
-    setLogado(false);
-
-
-    localStorage.removeItem(
-      "adminLogado"
-    );
-
-
+    return { sucesso: true, data };
   }
 
+  // RECUPERAR SENHA
+  async function resetPassword(email) {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "http://localhost:5173/login",
+    });
 
+    if (error) {
+      console.error(error);
+      return { sucesso: false, mensagem: error.message };
+    }
 
+    return { sucesso: true };
+  }
+
+  // LOGOUT
+  async function logout() {
+    await supabase.auth.signOut();
+  }
 
   return (
-
     <AuthContext.Provider
-
       value={{
-        logado,
+        user,
+        session,
+        loading,
+        logado: !!user,
+
         login,
+        cadastro,
+        resetPassword,
         logout,
       }}
-
     >
-
       {children}
-
     </AuthContext.Provider>
-
   );
-
 }
 
-
-
-
 export function useAuth() {
-
   return useContext(AuthContext);
-
 }
