@@ -42,9 +42,9 @@ export default function Footer() {
 
             <ul className="space-y-3 text-zinc-400">
 
-              <li>📞 (00) 00000-0000</li>
+              <li>📞 (74) 99938-2156</li>
 
-              <li>📧 contato@rayzergamer.com</li>
+              <li>📧 gameraizen45@gmail.com</li>
 
               <li>🕒 Seg a Sex • 09h às 18h</li>
 
@@ -136,7 +136,7 @@ export default function Footer() {
           </p>
 
           <p className="text-zinc-600">
-            Desenvolvido com ❤️ por Rayzer Gamer
+            Desenvolvido por Rayzer Gamer
           </p>
 
         </div>
