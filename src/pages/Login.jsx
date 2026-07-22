@@ -69,7 +69,7 @@ export default function Login() {
           )}
 
           <div className="relative">
-            <Mail className="absolute left-110 top-1/2 -translate-y-1/2 text-zinc-400" size={20}/>
+            <Mail className="absolute left-118 top-1/2 -translate-y-1/2 text-zinc-400" size={20}/>
             <input type="email" className="w-full h-14 rounded-2xl bg-white/5 border border-white/10 pl-14"
               placeholder="E-mail" value={email} onChange={e=>setEmail(e.target.value)}/>
           </div>
